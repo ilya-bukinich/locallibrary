@@ -16,24 +16,9 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <nav class="navbar">
-          <ul class="nav navbar-nav">
-            {% if user.is_staff %}
-                <p class="navbar-text">Staff</p>
-            {% if perms.catalog.can_mark_returned %}
-                <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
-            {% endif %}
-            {% endif %}
-            {% if user.is_authenticated %}
-                <p class="navbar-text">User: {{ user.get_username }}</p>
-                <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
-                <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-            {% endif %}
-          </ul>
-        </nav>
+
+    <div class="page-header bg-dark">
+        <h2 class="text-center">Local Library <small>a very basic Django website</small></h2>
     </div>
 
   <div class="container-fluid">
@@ -41,14 +26,31 @@
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
-          <ul class="sidebar-nav">
+          <ul class="navbar">
               <li><a href="{% url 'index' %}">Home</a></li>
               <li><a href="{% url 'books' %}">All books</a></li>
               <li><a href="{% url 'authors' %}">All authors</a></li>
+              <hr>
+            {% if user.is_staff %}
+              <p class="text">Staff</p>
+            {% if perms.catalog.can_mark_returned %}
+              <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
+              <li><a href="{% url 'author_create' %}">Author create</a></li>
+              <li><a href="{% url 'book_create' %}">Book create</a></li>
+            {% endif %}
+            {% endif %}
+              <hr>
+            {% if user.is_authenticated %}
+              <p class="text">User: {{ user.get_username }}</p>
+              <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
+              <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+            {% else %}
+              <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+            {% endif %}
           </ul>
       {% endblock %}
       </div>
-      <div class="col-sm-10 ">
+      <div class="col-sm-8">
       {% block content %}{% endblock %}
 
         {% block pagination %}
@@ -72,5 +74,6 @@
     </div>
 
   </div>
+
 </body>
 </html>

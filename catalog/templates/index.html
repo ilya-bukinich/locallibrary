@@ -6,15 +6,25 @@
   <p>Welcome to <em>LocalLibrary</em>, a very basic Django website</p>
 
 <h2>Dynamic content</h2>
-
-  <p>The library has the following record counts:</p>
+<div class="panel panel-info">
+    <div class="panel-body">
+      <p>The library has the following record counts:</p>
+    </div>
+  <div class="panel-footer">
   <ul>
     <li><strong>Books:</strong> {{ num_books }}</li>
     <li><strong>Copies:</strong> {{ num_instances }}</li>
     <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
     <li><strong>Authors:</strong> {{ num_authors }}</li>
   </ul>
-
+  </div>
+</div>
   <p>You have visited this page {{ num_visits }} times.</p>
 
 {% endblock %}
+<div class="panel panel-default">
+  <div class="panel-body">
+    Panel content
+  </div>
+  <div class="panel-footer">Panel footer</div>
+</div>
