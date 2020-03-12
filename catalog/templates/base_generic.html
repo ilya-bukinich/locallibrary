@@ -5,11 +5,13 @@
   {% block title %}<title>Local Library</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Load icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- Добавление дополнительного статического CSS файла -->
+  <!-- Load static CSS -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
@@ -17,8 +19,8 @@
 
 <body>
 
-    <div class="page-header bg-dark">
-        <h2 class="text-center">Local Library <small>a very basic Django website</small></h2>
+    <div class="page-header">
+        <h2 class="text-center"><small>Local Library a very basic Django website</small></h2>
     </div>
 
   <div class="container-fluid">
@@ -26,19 +28,10 @@
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
-          <ul class="navbar">
+          <ul class="sidebar-nav">
               <li><a href="{% url 'index' %}">Home</a></li>
               <li><a href="{% url 'books' %}">All books</a></li>
               <li><a href="{% url 'authors' %}">All authors</a></li>
-              <hr>
-            {% if user.is_staff %}
-              <p class="text">Staff</p>
-            {% if perms.catalog.can_mark_returned %}
-              <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
-              <li><a href="{% url 'author_create' %}">Author create</a></li>
-              <li><a href="{% url 'book_create' %}">Book create</a></li>
-            {% endif %}
-            {% endif %}
               <hr>
             {% if user.is_authenticated %}
               <p class="text">User: {{ user.get_username }}</p>
@@ -46,6 +39,16 @@
               <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
             {% else %}
               <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+            {% endif %}
+              <hr>
+            {% if user.is_staff %}
+              <p class="text">Staff</p>
+            {% if perms.catalog.can_mark_returned %}
+              <li><a href="/admin">Admin</a></li>
+              <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
+              <li><a href="{% url 'author_create' %}">Author create</a></li>
+              <li><a href="{% url 'book_create' %}">Book create</a></li>
+            {% endif %}
             {% endif %}
           </ul>
       {% endblock %}

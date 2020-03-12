@@ -1,16 +1,15 @@
-from django.shortcuts import render
+import datetime
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Book, Author, BookInstance, Genre
 from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-import datetime
+from django.urls import reverse, reverse_lazy
+from django.db.models import Q
 from .forms import RenewBookForm
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from .models import Book, Author, BookInstance, Genre
 
 
 def index(request):
@@ -77,7 +76,7 @@ def renew_book_librarian(request, pk):
     """
     View function for renewing a specific BookInstance by librarian
     """
-    book_inst=get_object_or_404(BookInstance, pk=pk)
+    book_inst = get_object_or_404(BookInstance, pk=pk)
 
     if request.method == 'POST':
 
@@ -93,7 +92,7 @@ def renew_book_librarian(request, pk):
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date,})
 
-    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst':book_inst})
+    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst': book_inst})
 
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
@@ -104,7 +103,7 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
-    fields = ['first_name','last_name','date_of_birth','date_of_death']
+    fields = '__all__'
     permission_required = 'catalog.can_mark_returned'
 
 
@@ -132,3 +131,12 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.can_mark_returned'
 
 
+class SearchResultsView(generic.ListView):
+    model = Book
+    template_name = 'search_results.html'
+
+    def get_queryset(self):  # новый
+        query = self.request.GET.get('q')
+        object_list = Book.objects.filter(
+            Q(title__icontains=query))
+        return object_list

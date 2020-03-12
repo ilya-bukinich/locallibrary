@@ -3,15 +3,15 @@
 {% block content %}
 
 <h1>Author List</h1>
+<h4>All authors</h4>
 
 {% if author_list %}
   <ul>
-
   {% for author in author_list %}
     <li>
       <a href="{{ author.get_absolute_url }}">
       {{ author }} ({{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %})
-      </a>
+      </a> {% if perms.catalog.can_mark_returned %}- <a href="{% url 'author_update' author.id %}">Edit</a>  {% endif %}
     </li>
   {% endfor %}
 
