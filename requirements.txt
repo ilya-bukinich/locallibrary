@@ -1,4 +1,4 @@
-asgiref==3.2.3
+asgiref==3.2.5
 attrs==19.3.0
 CacheControl==0.12.6
 cachy==0.3.0
