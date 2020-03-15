@@ -1,7 +1,8 @@
 # Django Local Library
 
 Tutorial "Local Library" website written in Django.
-![Homepage](media/homepage.png)
+![Locallibrary testing status](https://github.com/ilya-bukinich/locallibrary/workflows/Django%20CI/badge.svg)
+![Locallibrary deployment status](https://github.com/ilya-bukinich/locallibrary/workflows/Django%20CI/badge.svg)
 
 ## Overview
 
