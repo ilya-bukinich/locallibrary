@@ -4,6 +4,11 @@
 
 Tutorial "Local Library" website written in Django.
 
+## UML-diagrams
+
+- [uml_packages](/uml_packages.png "uml_packages")
+- [uml_classes.png](/uml_classes.png "uml_classes.png")
+
 ## Overview
 
 This web application creates an online catalog for a small local library, where users can browse available books and manage their accounts.
