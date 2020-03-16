@@ -6,7 +6,7 @@ Tutorial "Local Library" website written in Django.
 
 ## UML-diagrams
 
-- [uml_packages](https://raw.githubusercontent.com/ilya-bukinich/locallibrary/master/media/uml_packages.png "uml_packages.png")
+- [uml_packages.png](https://raw.githubusercontent.com/ilya-bukinich/locallibrary/master/media/uml_packages.png "uml_packages.png")
 - [uml_classes.png](https://raw.githubusercontent.com/ilya-bukinich/locallibrary/master/media/uml_classes.png "uml_classes.png")
 
 ## Overview
